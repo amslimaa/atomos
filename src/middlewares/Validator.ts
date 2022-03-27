@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 
-
 export const Validator = (schema: any) => async (req: Request, res: Response, next: NextFunction) => {
     try {
       await schema.validate({

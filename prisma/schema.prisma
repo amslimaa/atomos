@@ -7,13 +7,60 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model Address {
+  id         String   @id @default(uuid())
+  cep        String
+  street     String
+  number     Int
+  Reference  String
+  created_at DateTime @default(now())
+
+  @@map("address")
+  Colaborator Colaborator[]
+}
+
+model Occupation {
+  id              String   @id @default(uuid())
+  description     String
+  weekly_workload Int
+  created_at      DateTime @default(now())
+
+
+  @@map("occupation")
+  Colaborator Colaborator[]
+}
+
+model Sector {
+  id          String @id @default(uuid())
+  cod         String
+  description String
+
+  @@map("sector")
+}
 
 model User {
-  id          String    @id @default(uuid())
-  name        String  
-  email       String    @unique
-  password    String
-  created_at  DateTime  @default(now()) 
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
 
-  @@map("users") 
+  @@map("users")
+}
+
+model Colaborator {
+  id            String   @id @default(uuid())
+  name          String
+  birth         DateTime
+  cpf           String   @unique
+  clt           String   @unique
+  address       Address  @relation(fields: [addressId], references: [id])
+  addressId     String
+  occupation    Occupation @relation(fields: [occupationId], references: [id])
+  occupationId  String
+  salt          Float
+  coordinator   Colaborator @relation(fields: [id], references: [id])
+  coordinatorId String
+
+  @@map("colaborator")
 }
