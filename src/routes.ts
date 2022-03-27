@@ -1,14 +1,17 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { CreateUserController } from "./controllers/User/CreateUserController";
+import { Router } from "express";
+
 import { Validator } from "./middlewares/Validator";
 
+import { CreateUserController } from "./controllers/User/CreateUserController";
 import { UserCreationValidation } from "./validations/User/UserCreationValidation";
+
+import { CreateSessionController } from "./controllers/Session/CreateSessionController";
+import { SessionCreationValidation } from "./validations/Session/SessionCreationValidation";
 
 const routes = Router()
 
-const createUser = new CreateUserController()
+routes.post('/users', Validator(UserCreationValidation), new CreateUserController().handle)
 
-
-routes.post('/users', Validator(UserCreationValidation), createUser.handle)
+routes.post('/session', Validator(SessionCreationValidation), new CreateSessionController().handle)
 
 export  {routes};
