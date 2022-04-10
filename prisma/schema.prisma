@@ -15,27 +15,38 @@ model Address {
   Reference  String
   created_at DateTime @default(now())
 
-  @@map("address")
   Colaborator Colaborator[]
+  @@map("addresses")
 }
 
 model Occupation {
   id              String   @id @default(uuid())
+  cod             String
   description     String
   weekly_workload Int
   created_at      DateTime @default(now())
 
 
-  @@map("occupation")
   Colaborator Colaborator[]
+  @@map("occupations")
 }
 
 model Sector {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   cod         String
   description String
+  created_at  DateTime @default(now())
 
-  @@map("sector")
+  @@map("sectors")
+}
+
+model Record {
+  id            String       @id @default(uuid())
+  colaboratorId String
+  colaborator   Colaborator? @relation(fields: [colaboratorId], references: [id])
+  created_at    DateTime?    @default(now())
+
+  @@map("records")
 }
 
 model User {
@@ -49,18 +60,23 @@ model User {
 }
 
 model Colaborator {
-  id            String   @id @default(uuid())
+  id            String       @id @default(uuid())
+  cod           String
   name          String
   birth         DateTime
-  cpf           String   @unique
-  clt           String   @unique
-  address       Address  @relation(fields: [addressId], references: [id])
-  addressId     String
-  occupation    Occupation @relation(fields: [occupationId], references: [id])
-  occupationId  String
+  cpf           String       @unique
+  clt           String       @unique
+  address       Address?     @relation(fields: [addressId], references: [id])
+  addressId     String?
+  occupation    Occupation?  @relation(fields: [occupationId], references: [id])
+  occupationId  String?
   salt          Float
-  coordinator   Colaborator @relation(fields: [id], references: [id])
-  coordinatorId String
+  coordinatorId String?
+  coordinator   Colaborator? @relation("Coordinator", fields: [coordinatorId], references: [id])
+  created_at    DateTime     @default(now())
 
-  @@map("colaborator")
+
+  Colaborator Colaborator[] @relation("Coordinator")
+  Record      Record[]
+  @@map("colaborators")
 }
