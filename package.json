@@ -7,15 +7,21 @@
     "dev": "ts-node-dev --transpile-only ./src/server.ts"
   },
   "dependencies": {
+    "@adminjs/express": "^4.1.0",
+    "@adminjs/prisma": "^1.0.3",
     "@prisma/client": "^3.11.0",
     "@types/bcrypt": "^5.0.0",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/yup": "^0.29.13",
+    "adminjs": "^5.10.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.3",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^3.11.0",
     "sqlite": "^4.0.25",
+    "tslib": "^2.4.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

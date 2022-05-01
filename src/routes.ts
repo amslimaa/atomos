@@ -10,7 +10,6 @@ import { SessionCreationValidation } from "./validations/Session/SessionCreation
 
 import {CreateOccupationController} from "./controllers/Occupation/CreateOccupationController";
 
-
 import { CreateSectorController } from "./controllers/Sectors/CreateSectorController";
 
 import { CreateRecordController } from "./controllers/Records/CreateRecordController";
@@ -30,4 +29,5 @@ routes.post('/sectors', new CreateSectorController().handle)
 routes.post('/records/:colaboratorId', new CreateRecordController().handle)
 
 routes.post('/colaborators', new CreateColaboratorController().handle)
+
 export  {routes};
